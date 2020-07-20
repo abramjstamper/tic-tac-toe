@@ -14,6 +14,7 @@ class Game extends React.Component {
         ['', '', ''],
         ['', '', '']
       ],
+      winningPath: [],
       winner: ''
     };
   }
@@ -33,33 +34,41 @@ class Game extends React.Component {
     const state = { ...this.state };
 
     // Horizontal
-    if (state.board[0][0] === state.board[0][1] && state.board[0][1] === state.board[0][2]) {
-      state.winner = state.board[0][0];
+    if (state.board[0][1] !== '' && state.board[0][0] === state.board[0][1] && state.board[0][1] === state.board[0][2]) {
+      state.winner = state.board[0][1];
+      state.winningPath = [{ y: 0, x: 0 }, { y: 0, x: 1 }, { y: 0, x: 2 }];
     }
-    if (state.board[1][0] === state.board[1][1] && state.board[1][1] === state.board[1][2]) {
-      state.winner = state.board[1][0];
+    if (state.board[1][1] !== '' && state.board[1][0] === state.board[1][1] && state.board[1][1] === state.board[1][2]) {
+      state.winner = state.board[1][1];
+      state.winningPath = [{ y: 1, x: 0 }, { y: 1, x: 1 }, { y: 1, x: 2 }];
     }
-    if (state.board[2][0] === state.board[2][1] && state.board[2][1] === state.board[2][2]) {
-      state.winner = state.board[2][0];
+    if (state.board[2][1] !== '' && state.board[2][0] === state.board[2][1] && state.board[2][1] === state.board[2][2]) {
+      state.winner = state.board[2][1];
+      state.winningPath = [{ y: 2, x: 0 }, { y: 2, x: 1 }, { y: 2, x: 2 }];
     }
 
     // Vertical
-    if (state.board[0][0] === state.board[1][0] && state.board[1][0] === state.board[2][0]) {
-      state.winner = state.board[0][0];
+    if (state.board[1][0] !== '' && state.board[0][0] === state.board[1][0] && state.board[1][0] === state.board[2][0]) {
+      state.winner = state.board[1][0];
+      state.winningPath = [{ y: 0, x: 0 }, { y: 1, x: 0 }, { y: 2, x: 0 }];
     }
-    if (state.board[0][1] === state.board[1][1] && state.board[1][1] === state.board[2][1]) {
-      state.winner = state.board[0][1];
+    if (state.board[1][1] !== '' && state.board[0][1] === state.board[1][1] && state.board[1][1] === state.board[2][1]) {
+      state.winner = state.board[1][1];
+      state.winningPath = [{ y: 0, x: 1 }, { y: 1, x: 1 }, { y: 2, x: 1 }];
     }
-    if (state.board[0][2] === state.board[1][2] && state.board[1][2] === state.board[2][2]) {
-      state.winner = state.board[0][2];
+    if (state.board[1][2] !== '' && state.board[0][2] === state.board[1][2] && state.board[1][2] === state.board[2][2]) {
+      state.winner = state.board[1][2];
+      state.winningPath = [{ y: 0, x: 2 }, { y: 1, x: 2 }, { y: 2, x: 2 }];
     }
 
     // Diagonal
-    if (state.board[0][0] === state.board[1][1] && state.board[1][1] === state.board[2][2]) {
+    if (state.board[1][1] !== '' && state.board[0][0] === state.board[1][1] && state.board[1][1] === state.board[2][2]) {
       state.winner = state.board[1][1];
+      state.winningPath = [{ y: 0, x: 0 }, { y: 1, x: 1 }, { y: 2, x: 2 }];
     }
-    if (state.board[0][2] === state.board[1][1] && state.board[1][1] === state.board[2][0]) {
+    if (state.board[1][1] !== '' && state.board[0][2] === state.board[1][1] && state.board[1][1] === state.board[2][0]) {
       state.winner = state.board[1][1];
+      state.winningPath = [{ y: 0, x: 2 }, { y: 1, x: 1 }, { y: 2, x: 0 }];
     }
 
     const numberIndicesUnfilled = state.board.reduce((prev, curr) => {
@@ -81,6 +90,7 @@ class Game extends React.Component {
         ['', '', ''],
         ['', '', '']
       ],
+      winningPath: [],
       winner: ''
     });
   }
@@ -96,7 +106,7 @@ class Game extends React.Component {
 
         <div className="level">
           <div className="level-item has-text-centered">
-            <Board onBoxClick={this.onBoxClick} board={this.state.board} />
+            <Board onBoxClick={this.onBoxClick} board={this.state.board} winningPath={this.state.winningPath} />
           </div>
         </div>
       </div>

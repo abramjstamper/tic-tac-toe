@@ -1,6 +1,7 @@
 import React from 'react';
 import X from './X';
 import O from './O';
+import WinningLine from './WinningLine';
 
 const svgStyle = {
   fill: '#fff',
@@ -94,6 +95,10 @@ const Board = props => {
         {props.board[1][2] === 'O' ? <O x='320' y='160' /> : null}
         {props.board[2][2] === 'X' ? <X x='320' y='320' /> : null}
         {props.board[2][2] === 'O' ? <O x='320' y='320' /> : null}
+      </g>
+
+      <g>
+        <WinningLine {...props} />
       </g>
     </svg>
   );
